@@ -1,0 +1,5 @@
+{{ site.name }} 
+	•	{% assign sorted_pages = site.pages | sort:"nav-order" %} {% for page in sorted_pages %} {% if page.navigation %}
+	•	{{ page.title }}
+	•	{% endif %} {% endfor %} 
+{{ content }} 
