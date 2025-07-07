@@ -1,5 +1,47 @@
-{{ site.name }} 
-	•	{% assign sorted_pages = site.pages | sort:"nav-order" %} {% for page in sorted_pages %} {% if page.navigation %}
-	•	{{ page.title }}
-	•	{% endif %} {% endfor %} 
-{{ content }} 
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ site.name }}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://fonts.googleapis.com/css?family=Rye' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ site.url }}/css/main.css">
+
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [ ['$', '$']], displayMath: [ ['$$', '$$']], processEscapes: true}});</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+	<div class="header">
+        <a href="{{ site.url }}">
+            <img id="logo" src="/logo.png">
+        </a>
+
+        <div id="title">
+            <a href="{{ site.url }}">{{ site.name }}</a>
+        </div>
+
+        <div id="nav">
+            <ul>
+                {% assign sorted_pages = site.pages | sort:"nav-order" %}
+                {% for page in sorted_pages %}
+                    {% if page.navigation %}
+                        <li><a href="{{ site.url }}{{ page.url }}">{{ page.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="content">
+       {{ content }}
+    </div>
+</body>
+
+</html>
