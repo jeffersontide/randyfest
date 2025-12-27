@@ -128,7 +128,14 @@
   
           async function loadEntries() {
               try {
-                  const response = await fetch(csvURL + '?t=' + new Date().getTime());
+                  const finalURL = csvURL.includes('?') 
+                      ? `${csvURL}&t=${Date.now()}` 
+                      : `${csvURL}?t=${Date.now()}`;
+          
+                  const response = await fetch(finalURL);
+                  
+                  if (!response.ok) throw new Error('Network response was not ok');
+                  
                   const csvText = await response.text();
                   const container = document.getElementById('entries');
                   
