@@ -51,9 +51,9 @@
 <body>
   <div class="sidenav">
     <center>
-      <a href="./index.html">Home</a>
-      <a href="./guestbook.html">Guestbook</a>
-      <a href="mailto:lniu@sas.upenn.edu">Contact</a>
+      <a href="./index.html">Randyfest Guestbook!</a>
+      <a href="https://www.physics.upenn.edu/events/geometers-soft-materials-symposium">Symposium @ UPenn</a>
+      <a href="mailto:lniu@sas.upenn.edu">Contact organizers</a>
       <br><br><br><br>
       <a href="https://www.physics.upenn.edu/~kamien/kamiengroup/">Kamien Group</a>
     </center>
@@ -74,11 +74,127 @@
     <br><br>
     
     <p>
-      <h2>Information</h2>
+      <h2>Randyfest 2026 Guestbook</h2>
+
+      <form id="guestbookForm">
+        <input type="text" id="name" placeholder="Your Name" required style="font-size: 1.0rem;">
+        <br />
+        <input type="text" id="email" placeholder="Email (will not be displayed)" required style="font-size: 1.0rem;">
+        <br />
+        <textarea id="message" rows="4" placeholder="Write a message..." required style="width: 80%; max-width: 600px; font-size: 1.0rem;"></textarea>
+        <br />
+        <input type="text" id="extra" style="display:none" tabindex="-1" autocomplete="off">
+        <button type="submit" id="submitButton" style="padding: 5px 5px; font-size: 1.0rem;">Post Message</button>
+        <div id="status"></div>
+      </form>
+  
+      <hr>
+  
+      <h3>Messages</h3>
+      <div id="entries">Loading messages...</div>
+  
+      <script>
+          const scriptURL = 'https://script.google.com/macros/s/AKfycbykx9CF60xQ8wzOfXcM9df-nU-UW9qWf_j2t2z52uF5-WZ2HYvdqJ0ogI18yhmDsgXmtg/exec';
+          const csvURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRmZ-lABDTYPTYKM952pg7UF5YgA9ZvYSaF1Yxxfl5UI75Wg0T4P6IPm1YFt0J5QxZFjz06WhtSVjlR/pub?gid=0&single=true&output=csv';
+  
+          const form = document.getElementById('guestbookForm');
+          const status = document.getElementById('status');
+          const submitButton = document.getElementById('submitButton');
+  
+          form.addEventListener('submit', e => {
+              e.preventDefault();
+              submitButton.disabled = true;
+              status.innerText = "Sending...";
+  
+              const data = {
+                  name: document.getElementById('name').value,
+                  message: document.getElementById('message').value,
+                  email: document.getElementById('email').value,
+                  extra: document.getElementById('extra').value
+              };
+  
+              fetch(scriptURL, {
+                  method: 'POST',
+                  mode: 'no-cors',
+                  cache: 'no-cache',
+                  body: JSON.stringify(data)
+              })
+              .then(() => {
+                  status.innerText = "Message sent successfully!";
+                  form.reset();
+                  submitButton.disabled = false;
+                  setTimeout(loadEntries, 2000); // Reload list after 2 seconds
+              })
+              .catch(error => {
+                  console.error('Error!', error.message);
+                  status.innerText = "Error sending message.";
+                  submitButton.disabled = false;
+              });
+          });
+  
+          async function loadEntries() {
+              try {
+                  const finalURL = csvURL.includes('?') 
+                      ? `${csvURL}&t=${Date.now()}` 
+                      : `${csvURL}?t=${Date.now()}`;
+          
+                  const response = await fetch(finalURL);
+                  
+                  if (!response.ok) throw new Error('Network response was not ok');
+                  
+                  const csvText = await response.text();
+                  const container = document.getElementById('entries');
+                  
+                  const rows = csvText.split(/\r?\n/).filter(row => row.trim() !== "");
+                  container.innerHTML = '';
+          
+                  const dataRows = rows.slice(1).reverse();
+          
+                  dataRows.forEach(row => {
+                      const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                      
+                      if (cols && cols.length >= 4) {
+                          const dateRaw = cols[0].replace(/^"|"$/g, '').trim();
+                          const name = cols[1].replace(/^"|"$/g, '').trim();
+                          const msg = cols[3].replace(/^"|"$/g, '').trim();
+                          const approved = (cols[4] || "").replace(/^"|"$/g, '').trim();
+                  
+                          const parsedDate = new Date(dateRaw);
+                          
+                          if (name !== "" && !isNaN(parsedDate) && approved.toLowerCase() === "approved") {
+                              const div = document.createElement('div');
+                              div.className = 'entry';
+                              
+                              const dateDisplay = parsedDate.toLocaleDateString(undefined, { 
+                                  year: 'numeric', 
+                                  month: 'short', 
+                                  day: 'numeric' 
+                              });
+                  
+                              div.innerHTML = `
+                                  <strong>${name}</strong>: ${msg}<br/>
+                                  <span class="entry-date">${dateDisplay}</span>
+                                  <br/><br/>
+                              `;
+                              container.appendChild(div);
+                          }
+                      }
+                  });
+          
+                  if (container.innerHTML === '') {
+                      container.innerHTML = "<em>No approved messages yet.</em>";
+                  }
+          
+              } catch (err) {
+                  console.error("Display Error:", err);
+                  document.getElementById('entries').innerHTML = "Error loading entries.";
+              }
+          }
+  
+          // Initial load
+          loadEntries();
+      </script>
       
-      The latest information is available at the *official* website, <a href="https://www.physics.upenn.edu/events/geometers-soft-materials-symposium">https://www.physics.upenn.edu/events/geometers-soft-materials-symposium</a>.
-      <br/><br/>
-      But while you're here, why not sign our <a href="./guestbook.html">guestbook</a>?
     </p>
       
     <hr size=2>
