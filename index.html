@@ -2,59 +2,16 @@
 <html>
 <head>
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-  <BODY bgcolor="ddffdd" TEXT="#000000" vLINK="#000000" LINK="#000099">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8;width=device-width">
-  <style>
-    body {
-      font-family: "Arial", sans-serif;
-    }
-    
-    .sidenav {
-      height: 100%;
-      width: 127px;
-      position: fixed;
-      background-image:url('./b.jpg');
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      padding-top: 60px;
-    }
-    
-    .sidenav a {
-      padding-top: 12px;
-      padding-left: 20px;
-      padding-right: 30px;
-      padding-bottom: 22px;
-      text-decoration: none;
-      font-size: 19px;
-      color: #000000;
-      display: block;
-      transform: rotate(-28deg);
-    }
-    
-    .sidenav a:hover {
-      color: #f1f1f1;
-      font-style:italic;
-    }
-    
-    .main {
-      margin-left: 160px; /* Same as the width of the sidenav */
-      font-size: 15px; /* Increased text to enable scrolling */
-      padding: 0px 0px;
-    }
-    
-    @media screen and (max-height: 450px) {
-      .sidenav {padding-top: 15px;}
-      .sidenav a {font-size: 15px;}
-    }
-  </style>
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    
+    
   <div class="sidenav">
     <center>
-      <a href="./index.html">Randyfest guestbook</a>
+      <a href="./index.html">Randyfest Program</a>
+      <a href="./guestbook.html">Randyfest Guestbook</a>
       <a href="https://www.physics.upenn.edu/events/geometers-soft-materials-symposium">symposium website</a>
       <a href="mailto:lniu@sas.upenn.edu">email organizers</a>
       <br><br><br><br><br>
@@ -62,148 +19,232 @@
     </center>
   </div>
   
+  
   <div class="main">
     <title>Geometers of Soft Materials Symposium (aka Randyfest 2026)</title>
     
     <h1><center>Geometers of Soft Materials Symposium</center></h1>
     <h2><center>in honor of Randall D. Kamien's 60th birthday</center></h2>
     
-    <center>
+    <!-- <center>
       <a onmouseover="MouseOver(nv_link)" onmouseout="MouseOut(nv_link)">
         <img src="./young2.jpg" name="nv_link" height=400 align=center onmouseover="this.src='./still_young2.jpg'" onmouseout="this.src='./young2.jpg'">
       <br clear=all>
-    </center>
+    </center> -->
     
     <br><br>
     
-    <p>
-      <h2>Randyfest 2026 Guestbook</h2>
+      <h2>Randyfest 2026 Program</h2>
+      
+      <em>Click on each speaker/title to view the abstract.</em>
+      
+      <br/><br/><br/>
 
-      <form id="guestbookForm">
-        <input type="text" id="name" placeholder="Your Name" required style="font-size: 1.0rem;">
-        <br />
-        <input type="text" id="email" placeholder="Email (will not be displayed)" required style="font-size: 1.0rem;">
-        <br />
-        <textarea id="message" rows="4" placeholder="Write a message..." required style="width: 80%; max-width: 600px; font-size: 1.0rem;"></textarea>
-        <br />
-        <input type="text" id="extra" style="display:none" tabindex="-1" autocomplete="off">
-        <button type="submit" id="submitButton" style="padding: 5px 5px; font-size: 1.0rem;">Post Message</button>
-        <div id="status"></div>
-      </form>
-  
-      <hr>
-  
-      <h3>Messages</h3>
-
-      <i>Note: Messages may take a while to show up, and may also be moderated arbitrarily (by Lauren).</i>
+      <details>
+        <summary>
+      <b>David R. Nelson:</b>
+      Defect emission and absorption for liquid crystals on cones
+        </summary><br>
+      Cones with order in the local tangent plane provide a soft matter analog of the Aharonov-Bohm effect.   We study two-dimensional liquid crystals with p-fold rotational symmetry (p-atics) on the surfaces of cones, and find both the ground state and a ladder of quantized metastable states as a function of both the cone angle and the liquid crystal symmetry p. These states are characterized by a fractional defect charge at the apex and the ground states are in general frustrated due to effects of parallel transport along the azimuthal direction on the cone. We check our predictions numerically for a set of commensurate cone angles, whose surfaces can be polygonized as a perfect triangular or square mesh, and find good agreement. When tangential boundary conditions are applied at the base, the cone apex absorbs and emits quantized defect charges, as a function of cone angle. Defect emission and absorption events at the apex change dramatically when we consider active nematics on cones. Time permitting, we will also discuss a transition to chaos with conical billiards, inspired by the results above.
+      </details>
+      
       <br/><br/>
       
-      <div id="entries">Loading messages...</div>
-  
-      <script>
-          const scriptURL = 'https://script.google.com/macros/s/AKfycbw2QXyYq3immxR--Z_QHTgczCTIgJtciI2BQZHAMrg0zxXxyaaXDcp6uUjTz-vko9c-Ww/exec';
-          const csvURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRmZ-lABDTYPTYKM952pg7UF5YgA9ZvYSaF1Yxxfl5UI75Wg0T4P6IPm1YFt0J5QxZFjz06WhtSVjlR/pub?gid=0&single=true&output=csv';
-  
-          const form = document.getElementById('guestbookForm');
-          const status = document.getElementById('status');
-          const submitButton = document.getElementById('submitButton');
-  
-          form.addEventListener('submit', e => {
-              e.preventDefault();
-              submitButton.disabled = true;
-              status.innerText = "Sending...";
-  
-              const data = {
-                  name: document.getElementById('name').value,
-                  message: document.getElementById('message').value,
-                  email: document.getElementById('email').value,
-                  extra: document.getElementById('extra').value
-              };
-  
-              fetch(scriptURL, {
-                  method: 'POST',
-                  mode: 'no-cors',
-                  cache: 'no-cache',
-                  body: JSON.stringify(data)
-              })
-              .then(() => {
-                  status.innerText = "Message sent successfully!";
-                  form.reset();
-                  submitButton.disabled = false;
-                  setTimeout(loadEntries, 2000); // Reload list after 2 seconds
-              })
-              .catch(error => {
-                  console.error('Error!', error.message);
-                  status.innerText = "Error sending message.";
-                  submitButton.disabled = false;
-              });
-          });
-  
-          async function loadEntries() {
-              try {
-                  const finalURL = csvURL.includes('?') 
-                      ? `${csvURL}&t=${Date.now()}` 
-                      : `${csvURL}?t=${Date.now()}`;
-          
-                  const response = await fetch(finalURL);
-                  
-                  if (!response.ok) throw new Error('Network response was not ok');
-                  
-                  const csvText = await response.text();
-                  const container = document.getElementById('entries');
-                  
-                  const rows = csvText.split(/\r?\n/).filter(row => row.trim() !== "");
-                  container.innerHTML = '';
-          
-                  const dataRows = rows.slice(1).reverse();
-          
-                  dataRows.forEach(row => {
-                      const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                      
-                      if (cols && cols.length >= 4) {
-                          const dateRaw = cols[0].replace(/^"|"$/g, '').trim();
-                          const name = cols[1].replace(/^"|"$/g, '').trim();
-                          const msg = cols[3].replace(/^"|"$/g, '').trim();
-                          const approved = (cols[4] || "").replace(/^"|"$/g, '').trim();
-                  
-                          const parsedDate = new Date(dateRaw);
-                          
-                          if (name !== "" && !isNaN(parsedDate) && approved.toLowerCase() === "approved") {
-                              const div = document.createElement('div');
-                              div.className = 'entry';
-                              
-                              const dateDisplay = parsedDate.toLocaleDateString(undefined, { 
-                                  year: 'numeric', 
-                                  month: 'short', 
-                                  day: 'numeric' 
-                              });
-                  
-                              div.innerHTML = `
-                                  <strong>${name}</strong>: ${msg}<br/>
-                                  <span class="entry-date">${dateDisplay}</span>
-                                  <br/><br/>
-                              `;
-                              container.appendChild(div);
-                          }
-                      }
-                  });
-          
-                  if (container.innerHTML === '') {
-                      container.innerHTML = "<em>No approved messages yet.</em>";
-                  }
-          
-              } catch (err) {
-                  console.error("Display Error:", err);
-                  document.getElementById('entries').innerHTML = "Error loading entries.";
-              }
-          }
-  
-          // Initial load
-          loadEntries();
-      </script>
+      <details>
+          <summary>
+      <b>Emmanuelle Lacaze:</b>
+      Dynamics of nanoparticles within liquid crystal topological defects
+      </summary><br>
+          Insitut des NanoSciences de Paris, CNRS, Sorbonne University, Paris, France.<br><br>
+      It is known since 15 years at least that liquid crystal topological defects confine nanoparticles, the defect core being a highly favorable zone for the localization of nanoparticles, both cores and nanoparticles being of similar size [1]. As a result, it is known that assemblies of nanoparticles can be formed of shape and geometry templated by the defect geometry [2-4].
+      <br><br>
+      It is not so well known that confinement of nanoparticles within topological defects can also strongly impact the dynamics of the nanoparticles. This dynamics is studied at INSP using fluorescent nanoparticles whose motion can be tracked in fluorescence microscopy. I will illustrate this through two examples that provide completely different dynamics in relation with the different structure of the topological defect and of the liquid crystal phase:<br><br>
+      In collaboration with Atilla Eren-Mamuk (Mugla university – Turkey) and Hiroyuki Yoshida (Kwansei Gakuin University, Japan), we have demonstrated how it is possible to control the motion of nanoparticle clusters along a predefined direction when arrays of twist disclinations in nematic phase are used for the confinement of nanoparticles. We interpret this motion in collaboration with Samo Kralj (Maribor University) in relation with the asymetry of the nanoparticle clusters that we can control during the preparation of the composite sample.<br><br>
+      In smectic topological grain boundaries, we have shown that we can induce formation of assemblies of nanorods which appear randomly tilted within the defect cores in relation with the specific nanometric structure of these grain boundaries [5]. We have analyzed the dynamics of these assemblies along the grain boundaries. It is no more continuous like in the disclinations cited above where the nanoparticle speed was constant. In contrast, oscillating motion and jumps of the assemblies are observed. In collaboration with Damien Vandenbrouck (PMMH, Sorbonne university) and Davide Venturelli (LPTMC, Sorbonne university) we show that this specific motion can be interpreted within the frame of a Continous Time Random Walk Model and I will discuss the possible interpretation in relation with the distorsion induced in the liquid crystal by the nanoparticles that we study together with Randy.<br><br>
+      [1] C. Blanc, D. Coursault and E. Lacaze, Liq. Cryst. Review (2013)<br>
+      [2] D. Coursault et al., Adv. Funct. Mat. (2012)<br>
+      [3] S. P. Do et al. Nano Lee. (2020)<br>
+      [4] H. Jeridi et al., Sof Maeer (2022)<br>
+      [5] L. Musarek et al., Surf and Interf. (2025)
+      </details>
       
-    </p>
+      <br/><br/>
       
+      <details>
+          <summary>
+      <b>Mark Dennis:</b>
+      Softness Without Matter
+      </summary><br>
+      From knotted fields to disclination-like singularities to random tangles of filaments, soft matter and light--exemplifying linear classical wave fields--share geometric and topological features.  I will describe a Kamien-inspired tour of these analogies, asking how much of this common structure reflects the geometry of constrained configuration space in three dimensions.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      <b>Oleg Lavrentovich:</b>
+      Polarization patterns of ferroelectric nematics
+      </summary>
+          <br>
+      Advanced Materials and Liquid Crystal Institute, Materials Sciences Graduate Program, Department of Physics, Kent State University, Kent, OH 44242, USA; olavrent@kent.edu<br><br>
+
+      A ferroelectric nematic liquid crystal is formed by achiral molecules with large dipole moments. Its orientational order is universally described as unidirectionally polar, which raises the question of how the structure avoids a strong depolarization field and splay deformations that bring about a bound charge. We demonstrate a rich plethora of polarization patterns in ferroelectric nematics not constrained by crystallographic axes. In particular, domain walls take on the shapes of conic sections, separating domains with uniform and circular polarization, when the polarization is not guided by internal and external “easy directions”.<br><br>
+
+      When a flat ferroelectric nematic slab is unidirectionally anchored only at one bounding plate, its ground state becomes optically active, with left- and right-hand twists of polarization. In other words, polar order triggers chirality that does not require chemically induced chiral centers in molecules.<br><br>
+
+      An external electric field applied to create a splay produces patterns with a splay of opposite polarity in the orthogonal plane. The corresponding space charges of opposite signs compensate each other, thus solving the electrostatic problem by purely geometrical means. Polar order allows one to switch large birefringence within a microsecond, paving the way for practical applications. The work is supported by NSF grant DMR-2341830.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      <b>Sharon Glotzer:</b>
+      The Shapes of Things to Come
+      </summary><br>
+      [Abstract TBD -- "the topic is packing and assembly in curved spaces"]
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      <b>Teresa Lopez Leon:</b>
+      What constraints make possible
+      </summary><br>
+      Laboratoire Gulliver, UMR CNRS 7083, ESPCI Paris, Université PSL, 10 rue Vauquelin, 75005 Paris, France<br><br>
+
+      Constraints are often seen as limitations. In this talk, I explore how they can instead reveal new possibilities. Drawing on examples from my research on liquid crystals, I show how geometry and boundary conditions guide liquid crystal shells into complex structures, how confinement transforms chaotic active nematic flows into order, and how topological defects induce organized choreographies in nematic active inclusions. Along the way, I reflect on the role of constraints in collaboration, creativity, and personal growth.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Alvin Modin
+      Cable management: crafting tunable topological defect line architecture by photo-alignment of nematic liquid crystals
+      </summary>
+      Topological defects play a key role in many complex physical processes, from the fracture of materials to the formation of the early universe. Nematic liquid crystals are ideal test beds for studying the interactions between defects, particularly one-dimensional, linear disclinations. In this talk, I will show how photo-alignment can be utilized to create disclination line architecture in nematic liquid crystals. By imposing patterns of topological surface defects at opposing parallel glass substrates, I will develop an analogy between magnetostatics and nematic liquid crystals to show that i) disclination lines connect defects with the same topological charge on opposite surfaces and opposite charge on the same substrate, and ii) disclination lines are attracted to regions of maximal nematic twist. Using these two principles, I will demonstrate how to create three-dimensional configurations of disclination lines with pre-designed and non-trivial morphology that result from an energetic competition between defect line tension and elastic distortions. Our framework provides physical insight and powerful tools to induce desired shape changes of defect lines, opening opportunities to design new types of smart materials and devices.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Cody Schimming
+      Geometry from Topology: Defect Densities in Three-Dimensional Nematic Liquid Crystals
+      </summary>
+      Topological defects in nematic liquid crystals are beautiful and fascinating textures that provide physical examples of abstract mathematical concepts. Beyond their mathematical elegance, they are important for technological and biological applications of nematics, ranging from self-assembly of colloidal particles to morphogenesis of growing organisms. While the topological and geometric descriptions of defects in two-dimensional nematics have been well-understood for quite some time, defects in three-dimensional nematics still pose fundamental puzzles about how we might classify, detect, and track them.
+
+      In this talk, I will discuss recent methods for identifying topological defects from nematic data. I will first show how the usual integral measures for topological charge in two dimensions can be generalized to three dimensions by carefully constructing integrals in the order parameter space. I will then show how this topological description can be manipulated to give a measure of the defect density. This defect density not only provides the location of topological defects but also gives information about their local geometry. I will conclude by discussing possible generalizations of these methods to other broken-symmetry phases.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Einav Berin
+      Inverse Design of Tightly-Woven Smart Fabrics
+      </summary>
+      Threads that undergo controlled deformations in response to environmental stimuli open the door to the manufacturing of fabrics that can change their shape on demand. This can be realized with a variety of smart materials, such as liquid crystal elastomers or shape-memory polymers. In this talk, we discuss the geometry and deformation of a simple woven fabric whose threads are pre-programmed with some response field. We focus on the tight-weaving regime, where threads undergo a jamming transition, and further in-plane deformations are strongly suppressed. The result is a direct relation between the actuation profile and the shape of the actuated fabric. We use this relation to study the inverse design problem: given a target surface, we calculate the thread parameters at each point needed to induce the fabric to morph into the desired shape upon actuation. The inverse problem is resolved by constructing a suitable coordinate system on the target surface. We show that such constructions exist locally on every smooth surface. We further show an algorithm for finding approximate global solutions using tools from discrete differential geometry. We thus provide explicit recipes for manufacturing tightly woven fabrics that morph into arbitrary target shapes.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Enej Caf
+      Spontaneous Flow and Non-singular Topological Defects in 3D Active Nematics
+      </summary>
+      Emergence of chirality is a significant characteristic of biological systems across scales, but it is perhaps surprising that even completely achiral active constituents can spontaneously break the chiral symmetry. We study the fundamental instability in 3D confined active nematics with normal anchoring, which gives rise to degenerate left- and right-handed flow states. This spontaneous symmetry breaking yields key signatures of umbilic defects and domain walls separating chiral domains of opposite handedness. Topologically, these belong to a class of non-singular topological defects. We show that domains in this system can be characterised by an effective anisotropic Model A field theory, where anisotropy affects not only the shape, but also drastically modifies the spatial coarsening of the domains.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Helen Ansell
+      Curvature-induced localization of phase-separated active Brownian particles
+      </summary>
+      Curvature is ubiquitous in nature and can fundamentally alter the collective properties of soft, active and biological materials. Motility-induced phase separation (MIPS) is a well-studied non-equilibrium phenomenon whose behavior can be influenced by curvature. In this talk, I will discuss how curvature alters the dynamics of the MIPS dense phase even in regimes where its effect on phase behavior is minimal. Focusing on active Brownian particles confined to the surface of a torus, we find that for low-aspect-ratio tori the dense phase localizes to regions of positive curvature, while at larger aspect ratios a band forms. I will demonstrate how energetic arguments explain the location and shape of the dense phase, highlighting how even slowly varying curvature can shape non-equilibrium dynamics.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Lisa Tran
+      Controlling defects in molecular and colloidal liquid crystals
+      </summary>
+      Liquid crystals are the basis of the modern display industry because of their unique properties. Yet, liquid crystalline ordering occurs in systems beyond displays and across length scales, including within living organisms. Controlling the structuring of liquid crystals across these length scales remains an open challenge. Geometrical constraints can generate patterns and defects – localized, “melted” regions of disorder that can minimize the total elastic distortion in the system. Within diverse biomaterials, defects act to distribute stress or to diffusely scatter light, resulting in unusual toughness or noniridescent structural color. In this talk, I will present the formation of defects within molecular and colloidal liquid crystals that are induced through geometrical frustration. I will begin by presenting work done during my PhD with Randy Kamien on a model system of a molecular, chiral liquid crystal confined to a spherical shell with the use of microfluidics. I will then present ongoing experiments in my group that probe the role of confinement for structuring larger-scaled, colloidal liquid crystals, such as cellulose nanocrystals and silica nanorods. These organizing principles provide insight on pattern formation in anisotropic elastic materials, across length scales, the mechanisms of which can be leveraged for designing new, bio-inspired materials.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Marcelo Dias
+      Fracture, by design: topology-programmed damage in Maxwell lattices
+      </summary>
+      Fracture is usually treated as an outcome to be avoided; here we see it as something we may write into a lattice's microstructure. Maxwell lattices sit at the edge of mechanical stability, where robust topological properties provide a way on how stress localises and delocalises across the structure with directional preference. Building on this, we propose a direct relationship between lattice topology and damage propagation. We identify a set of topology- and geometry-dependent parameters that gives a simple, predictive framework for nonideal Maxwell lattices and their damage processes. We will discuss how topological polarisation and domain walls steer and arrest damage in a repeatable way. Experiments confirm the theoretical predicted localisation and the resulting tuneable progression of damage and show how this control mechanism can be used to enhance dissipation and raise the apparent fracture energy.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Matej Krajnc
+      How 3D cell geometry controls tissue rigidity and shape
+      </summary>
+      The remarkable ability of animal tissues to develop from simple structures into complex organisms and to self-repair after mechanical injury relies on cells dynamically switching between solid-like and fluid-like states and actively changing shape at the right place and time. These processes are tightly regulated by biochemical signals, and disruptions to this regulation can have serious consequences for tissue function and organismal viability. In these complex systems, we seek simple mechanistic and geometric principles that explain behavior across cellular and tissue scales. This talk has two parts. First, I will show how complex shapes can emerge in non-patterned epithelial monolayers as a consequence of symmetry breaking and geometric constraints. I will introduce a coarse-grained description of the vertex model for epithelial tissues and derive the conditions for buckling and wrinkling instabilities. Second, I will examine the well-known rigidity transition in epithelial monolayers. I will show that three-dimensional effects can give rise to a reentrant rigid–floppy–rigid transition controlled by cell height. To elucidate the nature of this transition, I will analyze the model within a mean-field framework.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Max Lavrentovich
+      Striped patterns and droplet nucleation in liquid crystals: Effects of elastic anisotropy and imposed defects
+      </summary>
+      The organization of nematic liquid crystals depends on an interplay between anchoring conditions, sample geometry, and the elastic cost of splay, twist, and bend deformations.  By photopatterning the liquid crystal cell, we control this interplay by precisely specifying the direction of local preferred molecular alignment. Photopatterns containing arrays of positive and negative 1/2 disclinations create preferred nucleation points for the isotropic phase in a heated nematic. In this case, the higher cost of bend deformations shifts nucleating isotropic droplets towards the +1/2 defects of the photopattern array.  In the newly discovered ferroelectric nematics, where electrostatic interactions penalize uniform alignment and splay deformations, unidirectional or +1 defect (uniform radial) photopatterns induce, respectively, twisted stripes and radial "pie-slice" domains. We discuss the theoretical framework for capturing these phenomena, emphasizing the critical role of elastic constant anisotropy in explaining the observed morphologies.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Mike Dimitriyev
+      Symmetry and packing of intercatenated materials
+      </summary>
+      Much of condensed matter is concerned with materials whose constituents---molecular or otherwise---are able to freely translate or reptate throughout space, given sufficient time. However, the imposition of topological constraint places firm limits on the manner in which matter can move, often resulting in localization. While this has been well-studied in the context of chemically crosslinked polymers in amorphous solids, there remains much to explore about more general topological constraints. We consider vignettes of materials that can be considered linked or intercatenated, with distinct material components that cannot be pulled apart without a cutting operation: chain mail, knitted textiles, and bicontinuous assemblies of block copolymers. In particular, we explore how the symmetries present in periodic microstructures affect the packing geometry of the material components. We show frustration induced by topological constraints largely determine or alter material properties across scales.
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Szabolcs Horvat
+      [TBD]
+      </summary>
+      </details>
+      
+      <br/><br/>
+      
+      <details>
+          <summary>
+      Xinyu Wang
+      Topology-driven versatile design and collective dynamics in nematic liquid crystals
+      </summary>
+      We use topology as a design and control principle for defects and defect–colloid composites in nematic liquid crystals. Using experiments and simulations, we first show that rotating one periodically patterned anchoring substrate relative to the other creates nematic moiré patterns that yields highly tunable disclination structures, including defect networks and loop-like motifs. These defects direct three-dimensional colloidal self-assembly, while colloids can stabilize defect loops and suppress self-annihilation through jamming. We further demonstrate that selected moiré configurations can encode user-defined shapes as defect regions, enabling versatile mesoscale patterning. Moving beyond equilibrium, we show light-driven spatiotemporal reconfiguration of disclination lines that reconfigures colloidal entanglement, including chirality conversion and domino-like collective rotations. By programming defect geometry, we achieve controlled assembly, splitting, and double-helix entanglement.
+      </details>
+      
+      <br/><br/>
+      
+      <a href="./poster-dark.png">
+          <img src="./poster-dark.png" width="30%">
+      </a>
+      
+
     <hr size=2>
       
     <em>
